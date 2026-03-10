@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Yogesh Vanjari — Cloud & DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #05080f;
+    --surface: #0d1220;
+    --border: #1a2540;
+    --aws: #FF9900;
+    --azure: #0078D4;
+    --gcp: #34A853;
+    --accent: #00f0ff;
+    --text: #e4eaf7;
+    --muted: #5a6a8a;
+    --card: #0b1525;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ===== GRID BG ===== */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(5,8,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem; color: var(--accent);
+    letter-spacing: 2px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 8rem 3rem 4rem;
+    position: relative; z-index: 1;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; color: var(--accent);
+    letter-spacing: 3px; text-transform: uppercase;
+    border: 1px solid var(--accent);
+    padding: 0.3rem 0.8rem; margin-bottom: 1.5rem;
+    animation: fadeIn 0.6s ease forwards;
+  }
+  h1 {
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 800; line-height: 1.0;
+    animation: slideUp 0.8s ease forwards;
+  }
+  h1 .dim { color: var(--muted); }
+  h1 .highlight { color: var(--accent); }
+  .hero-sub {
+    margin-top: 1.5rem;
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 560px; line-height: 1.7;
+    animation: fadeIn 1s ease 0.3s both;
+  }
+  .hero-badges {
+    display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;
+    animation: fadeIn 1s ease 0.5s both;
+  }
+  .badge {
+    padding: 0.4rem 1rem; border-radius: 2px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 1px;
+  }
+  .badge-aws { background: rgba(255,153,0,0.12); border: 1px solid var(--aws); color: var(--aws); }
+  .badge-azure { background: rgba(0,120,212,0.12); border: 1px solid var(--azure); color: var(--azure); }
+  .badge-gcp { background: rgba(52,168,83,0.12); border: 1px solid var(--gcp); color: var(--gcp); }
+  .badge-devops { background: rgba(0,240,255,0.08); border: 1px solid var(--accent); color: var(--accent); }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; margin-top: 3rem;
+    animation: fadeIn 1s ease 0.7s both;
+  }
+  .btn-primary {
+    padding: 0.8rem 2rem;
+    background: var(--accent); color: #000;
+    font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,240,255,0.25); }
+  .btn-outline {
+    padding: 0.8rem 2rem;
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+    font-weight: 600; font-size: 0.9rem;
+    text-decoration: none; cursor: pointer;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 6rem 3rem; max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; color: var(--accent);
+    letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-size: 2.5rem; font-weight: 800;
+    margin-bottom: 3rem; line-height: 1.1;
+  }
+
+  /* ===== SKILLS ===== */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    transition: border-color .2s, transform .2s;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .skill-card h3 { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.6rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; color: var(--muted);
+  }
+
+  /* ===== PROJECTS ===== */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.8rem;
+    transition: transform .2s, border-color .2s;
+    cursor: default;
+  }
+  .project-card:hover { transform: translateY(-4px); }
+  .project-card.aws-card:hover { border-color: var(--aws); }
+  .project-card.azure-card:hover { border-color: var(--azure); }
+  .project-card.gcp-card:hover { border-color: var(--gcp); }
+  .project-card.devops-card:hover { border-color: var(--accent); }
+  .project-platform {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+    padding: 0.2rem 0.6rem; margin-bottom: 1rem;
+  }
+  .platform-aws { background: rgba(255,153,0,0.1); color: var(--aws); border: 1px solid rgba(255,153,0,0.3); }
+  .platform-azure { background: rgba(0,120,212,0.1); color: var(--azure); border: 1px solid rgba(0,120,212,0.3); }
+  .platform-gcp { background: rgba(52,168,83,0.1); color: var(--gcp); border: 1px solid rgba(52,168,83,0.3); }
+  .platform-devops { background: rgba(0,240,255,0.07); color: var(--accent); border: 1px solid rgba(0,240,255,0.2); }
+  .platform-multi { background: rgba(160,100,255,0.1); color: #b080ff; border: 1px solid rgba(160,100,255,0.3); }
+  .project-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.7rem; }
+  .project-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tech-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; color: var(--muted);
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 0.2rem 0.5rem;
+  }
+
+  /* ===== EXPERIENCE TIMELINE ===== */
+  .timeline { border-left: 2px solid var(--border); padding-left: 2rem; }
+  .timeline-item { margin-bottom: 2.5rem; position: relative; }
+  .timeline-item::before {
+    content: '';
+    position: absolute; left: -2.45rem; top: 0.4rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+  }
+  .timeline-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; color: var(--accent); letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+  }
+  .timeline-item h3 { font-size: 1.15rem; font-weight: 700; }
+  .timeline-item .company { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.8rem; }
+  .timeline-item ul { list-style: none; }
+  .timeline-item ul li {
+    font-size: 0.88rem; color: var(--muted); line-height: 1.65;
+    padding-left: 1rem; position: relative; margin-bottom: 0.3rem;
+  }
+  .timeline-item ul li::before { content: '›'; position: absolute; left: 0; color: var(--accent); }
+
+  /* ===== CERTIFICATIONS ===== */
+  .cert-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .cert-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 1.2rem 1.5rem; flex: 1; min-width: 200px;
+    display: flex; gap: 1rem; align-items: center;
+    transition: border-color .2s;
+  }
+  .cert-card:hover { border-color: var(--accent); }
+  .cert-icon { font-size: 1.8rem; }
+  .cert-card h4 { font-size: 0.9rem; font-weight: 700; }
+  .cert-card span { font-size: 0.75rem; color: var(--muted); }
+
+  /* ===== CONTACT ===== */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .contact-item {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 1.5rem; display: flex; align-items: center; gap: 1rem;
+    text-decoration: none; color: var(--text);
+    transition: border-color .2s, color .2s;
+  }
+  .contact-item:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-item .icon { font-size: 1.4rem; }
+  .contact-item h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 0.2rem; }
+  .contact-item p { font-size: 0.9rem; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center; padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; color: var(--muted);
+    position: relative; z-index: 1;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+  @keyframes slideUp { from { opacity:0; transform: translateY(30px) } to { opacity:1; transform: translateY(0) } }
+
+  /* ===== DIVIDER ===== */
+  .section-divider {
+    border: none; border-top: 1px solid var(--border);
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 3rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">YV.DEV</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">// AWS · Azure · GCP · DevOps</div>
+  <h1>
+    <span class="dim">Hi, I'm</span><br/>
+    <span class="highlight">Yogesh</span><br/>
+    <span class="dim">Vanjari</span>
+  </h1>
+  <p class="hero-sub">
+    Cloud & DevOps Engineer building scalable, automated infrastructure across AWS, Azure, and GCP. Passionate about CI/CD, containerization, and infrastructure as code.
+  </p>
+  <div class="hero-badges">
+    <span class="badge badge-aws">☁ AWS</span>
+    <span class="badge badge-azure">⬡ Azure</span>
+    <span class="badge badge-gcp">◈ GCP</span>
+    <span class="badge badge-devops">⚙ DevOps</span>
+  </div>
+  <div class="hero-ctas">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="#contact" class="btn-outline">Get In Touch</a>
+  </div>
+</section>
+<hr class="section-divider"/>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">// 01 — Expertise</p>
+  <h2>Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>☁ AWS</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">EC2</span><span class="skill-tag">S3</span><span class="skill-tag">IAM</span>
+        <span class="skill-tag">VPC</span><span class="skill-tag">RDS</span><span class="skill-tag">Lambda</span>
+        <span class="skill-tag">API Gateway</span><span class="skill-tag">CloudWatch</span>
+        <span class="skill-tag">Route 53</span><span class="skill-tag">WAF</span><span class="skill-tag">EKS</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3>⬡ Azure</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Azure VMs</span><span class="skill-tag">Azure DevOps</span>
+        <span class="skill-tag">AKS</span><span class="skill-tag">Azure Storage</span>
+        <span class="skill-tag">Azure Functions</span><span class="skill-tag">ARM Templates</span>
+        <span class="skill-tag">Azure Monitor</span><span class="skill-tag">Azure AD</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3>◈ GCP</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">GCE</span><span class="skill-tag">GCS</span>
+        <span class="skill-tag">GKE</span><span class="skill-tag">Cloud Run</span>
+        <span class="skill-tag">Cloud Functions</span><span class="skill-tag">BigQuery</span>
+        <span class="skill-tag">Cloud Build</span><span class="skill-tag">IAM</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3>⚙ DevOps & IaC</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Terraform</span><span class="skill-tag">CloudFormation</span>
+        <span class="skill-tag">Jenkins</span><span class="skill-tag">GitHub Actions</span>
+        <span class="skill-tag">Ansible</span><span class="skill-tag">Helm</span>
+        <span class="skill-tag">SonarQube</span><span class="skill-tag">Maven</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3>🐳 Containers</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span>
+        <span class="skill-tag">EKS</span><span class="skill-tag">AKS</span><span class="skill-tag">GKE</span>
+        <span class="skill-tag">Helm Charts</span><span class="skill-tag">Docker Compose</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3>📊 Monitoring</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">CloudWatch</span><span class="skill-tag">Prometheus</span>
+        <span class="skill-tag">Grafana</span><span class="skill-tag">Azure Monitor</span>
+        <span class="skill-tag">GCP Logging</span><span class="skill-tag">Slack Alerts</span>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="section-divider"/>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">// 02 — Work</p>
+  <h2>Projects</h2>
+  <div class="projects-grid">
+
+    <!-- AWS Projects -->
+    <div class="project-card aws-card">
+      <span class="project-platform platform-aws">AWS</span>
+      <h3>Cloud Monitoring & Alerting System</h3>
+      <p>Built real-time monitoring dashboards using AWS CloudWatch and Grafana. Integrated Slack notifications for instant alerts, reducing incident response time by ~40%.</p>
+      <div class="project-tech">
+        <span class="tech-tag">CloudWatch</span><span class="tech-tag">Grafana</span>
+        <span class="tech-tag">EC2</span><span class="tech-tag">RDS</span><span class="tech-tag">Slack API</span>
+      </div>
+    </div>
+
+    <div class="project-card aws-card">
+      <span class="project-platform platform-aws">AWS</span>
+      <h3>Infrastructure Automation with Terraform</h3>
+      <p>Automated full AWS infrastructure provisioning with reusable Terraform modules for EC2, VPC, IAM, and S3. Maintained IaC with GitHub version control.</p>
+      <div class="project-tech">
+        <span class="tech-tag">Terraform</span><span class="tech-tag">EC2</span>
+        <span class="tech-tag">VPC</span><span class="tech-tag">IAM</span><span class="tech-tag">S3</span>
+      </div>
+    </div>
+
+    <div class="project-card aws-card">
+      <span class="project-platform platform-aws">AWS</span>
+      <h3>3-Tier Highly Available Architecture</h3>
+      <p>Designed and deployed a production-grade 3-tier AWS architecture using EC2, RDS, and S3 with ALB, Auto Scaling, NAT Gateway, and security groups.</p>
+      <div class="project-tech">
+        <span class="tech-tag">EC2</span><span class="tech-tag">RDS</span><span class="tech-tag">ALB</span>
+        <span class="tech-tag">ASG</span><span class="tech-tag">VPC</span><span class="tech-tag">S3</span>
+      </div>
+    </div>
+
+    <div class="project-card aws-card">
+      <span class="project-platform platform-aws">AWS</span>
+      <h3>Serverless REST API Platform</h3>
+      <p>Built serverless backend APIs using AWS Lambda, API Gateway, and DynamoDB — fully managed, scalable, and cost-optimized for high-traffic use cases.</p>
+      <div class="project-tech">
+        <span class="tech-tag">Lambda</span><span class="tech-tag">API Gateway</span>
+        <span class="tech-tag">DynamoDB</span><span class="tech-tag">IAM</span>
+      </div>
+    </div>
+
+    <!-- Azure Projects -->
+    <div class="project-card azure-card">
+      <span class="project-platform platform-azure">Azure</span>
+      <h3>Azure DevOps CI/CD Pipeline</h3>
+      <p>Designed multi-stage CI/CD pipelines in Azure DevOps for a Node.js app — from code commit to container build to AKS deployment with automated rollback.</p>
+      <div class="project-tech">
+        <span class="tech-tag">Azure DevOps</span><span class="tech-tag">AKS</span>
+        <span class="tech-tag">Docker</span><span class="tech-tag">ACR</span><span class="tech-tag">YAML Pipelines</span>
+      </div>
+    </div>
+
+    <div class="project-card azure-card">
+      <span class="project-platform platform-azure">Azure</span>
+      <h3>Azure VM Infrastructure with ARM</h3>
+      <p>Provisioned and managed Azure Virtual Machine infrastructure using ARM Templates. Configured Azure Monitor alerts and Log Analytics Workspace for observability.</p>
+      <div class="project-tech">
+        <span class="tech-tag">Azure VMs</span><span class="tech-tag">ARM Templates</span>
+        <span class="tech-tag">Azure Monitor</span><span class="tech-tag">Log Analytics</span>
+      </div>
+    </div>
+
+    <!-- GCP Projects -->
+    <div class="project-card gcp-card">
+      <span class="project-platform platform-gcp">GCP</span>
+      <h3>GKE Microservices Deployment</h3>
+      <p>Containerized a microservices application and deployed it on Google Kubernetes Engine. Configured Cloud Load Balancing, auto-scaling, and Cloud Logging.</p>
+      <div class="project-tech">
+        <span class="tech-tag">GKE</span><span class="tech-tag">Docker</span>
+        <span class="tech-tag">Cloud Build</span><span class="tech-tag">GCR</span><span class="tech-tag">Cloud Logging</span>
+      </div>
+    </div>
+
+    <div class="project-card gcp-card">
+      <span class="project-platform platform-gcp">GCP</span>
+      <h3>Serverless App on Cloud Run</h3>
+      <p>Deployed a containerized Python Flask API on GCP Cloud Run with auto-scaling to zero. Used Cloud Build for automated image builds triggered on Git push.</p>
+      <div class="project-tech">
+        <span class="tech-tag">Cloud Run</span><span class="tech-tag">Cloud Build</span>
+        <span class="tech-tag">GCS</span><span class="tech-tag">Python</span><span class="tech-tag">Docker</span>
+      </div>
+    </div>
+
+    <!-- DevOps Projects -->
+    <div class="project-card devops-card">
+      <span class="project-platform platform-devops">DevOps</span>
+      <h3>CI/CD Pipeline for Java App</h3>
+      <p>Built end-to-end Jenkins pipeline with Maven for build automation, SonarQube for code quality analysis, and automated Docker deployment to AWS EC2.</p>
+      <div class="project-tech">
+        <span class="tech-tag">Jenkins</span><span class="tech-tag">Maven</span>
+        <span class="tech-tag">SonarQube</span><span class="tech-tag">Docker</span><span class="tech-tag">EC2</span>
+      </div>
+    </div>
+
+    <div class="project-card devops-card">
+      <span class="project-platform platform-devops">DevOps</span>
+      <h3>Containerized App on Kubernetes</h3>
+      <p>Dockerized applications and deployed to a Kubernetes cluster with rolling update strategy, service exposure via NodePort/LoadBalancer, and liveness probes.</p>
+      <div class="project-tech">
+        <span class="tech-tag">Docker</span><span class="tech-tag">Kubernetes</span>
+        <span class="tech-tag">Helm</span><span class="tech-tag">Rolling Updates</span>
+      </div>
+    </div>
+
+    <div class="project-card devops-card">
+      <span class="project-platform platform-devops">DevOps</span>
+      <h3>Ansible Configuration Automation</h3>
+      <p>Automated server configuration and app deployment with Ansible playbooks, significantly reducing manual effort and ensuring consistent environments across servers.</p>
+      <div class="project-tech">
+        <span class="tech-tag">Ansible</span><span class="tech-tag">Linux</span>
+        <span class="tech-tag">Bash</span><span class="tech-tag">YAML</span>
+      </div>
+    </div>
+
+    <div class="project-card" style="border-color: rgba(160,100,255,0.25);">
+      <span class="project-platform platform-multi">Multi-Cloud</span>
+      <h3>Multi-Cloud Cost Dashboard</h3>
+      <p>Aggregated cost and usage metrics across AWS, Azure, and GCP into a unified Grafana dashboard to provide visibility into cross-cloud spending and optimization opportunities.</p>
+      <div class="project-tech">
+        <span class="tech-tag">AWS Cost Explorer</span><span class="tech-tag">Azure Cost Mgmt</span>
+        <span class="tech-tag">GCP Billing</span><span class="tech-tag">Grafana</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+<hr class="section-divider"/>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">// 03 — History</p>
+  <h2>Experience</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">OCT 2024 – MAR 2025</div>
+      <h3>AWS Engineer Intern</h3>
+      <p class="company">Global Web World · Aurangabad, Maharashtra</p>
+      <ul>
+        <li>Designed and deployed a highly available 3-tier AWS architecture using EC2, RDS, and S3.</li>
+        <li>Configured VPC with public/private subnets, route tables, NAT Gateway, and security groups.</li>
+        <li>Implemented ALB and Auto Scaling Groups to handle dynamic traffic.</li>
+        <li>Built serverless REST APIs using AWS Lambda, API Gateway, and DynamoDB.</li>
+        <li>Set up CloudWatch metrics, alarms, and log monitoring for system reliability.</li>
+        <li>Assisted in CI/CD pipeline implementation using Jenkins and GitHub.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<hr class="section-divider"/>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <p class="section-label">// 04 — Credentials</p>
+  <h2>Certifications</h2>
+  <div class="cert-row">
+    <div class="cert-card">
+      <div class="cert-icon">☁</div>
+      <div>
+        <h4>AWS Cloud Practitioner</h4>
+        <span>Training Completed · 2024</span>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🗄</div>
+      <div>
+        <h4>Oracle Database Foundation</h4>
+        <span>Oracle · 2023</span>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">💻</div>
+      <div>
+        <h4>C++ Programming</h4>
+        <span>Certification · 2023</span>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="section-divider"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">// 05 — Connect</p>
+  <h2>Get In Touch</h2>
+  <div class="contact-grid">
+    <a class="contact-item" href="mailto:vanjariyogesh531@gmail.com">
+      <span class="icon">✉</span>
+      <div><h4>Email</h4><p>vanjariyogesh531@gmail.com</p></div>
+    </a>
+    <a class="contact-item" href="tel:+919529827172">
+      <span class="icon">📞</span>
+      <div><h4>Phone</h4><p>+91-9529827172</p></div>
+    </a>
+    <a class="contact-item" href="https://linkedin.com" target="_blank">
+      <span class="icon">🔗</span>
+      <div><h4>LinkedIn</h4><p>linkedin.com/in/yogesh-vanjari</p></div>
+    </a>
+    <a class="contact-item" href="https://github.com" target="_blank">
+      <span class="icon">⌥</span>
+      <div><h4>GitHub</h4><p>github.com/yogesh-vanjari</p></div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Yogesh Madhukar Vanjari · Cloud & DevOps Engineer · Aurangabad, Maharashtra</p>
+</footer>
+
+</body>
+</html>
